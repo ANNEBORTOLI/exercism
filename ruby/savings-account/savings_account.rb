@@ -11,21 +11,16 @@ module SavingsAccount
   end
 
   def self.years_before_desired_balance(current_balance, desired_balance)
-    updated_balance = annual_balance_update(current_balance)
+    updated_balance = current_balance
     years = 0
-    while current_balance < desired_balance
+    while updated_balance < desired_balance
       years += 1
-      current_balance = updated_balance + annual_balance_update(updated_balance)
+      updated_balance = annual_balance_update(updated_balance)
     end
-
     years
   end
 end
 
-puts SavingsAccount.years_before_desired_balance(200.75, 214.88)
-#=> 14
-
-# Formula: Interest = P * R * T
-# P = Principal amount (the beginning balance).
-# R = Interest rate (usually per year, expressed as a decimal).
-# T = Number of time periods (generally one-year time periods).
+# puts SavingsAccount.interest_rate(200.75) #=> 0.5
+# puts SavingsAccount.annual_balance_update(200.75) #=> 201.75375
+puts SavingsAccount.years_before_desired_balance(200.75, 214.88) #=> 14
